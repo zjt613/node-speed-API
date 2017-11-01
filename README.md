@@ -5,23 +5,23 @@
 * 因为实际需求的多样性，本项目并未对数据库操作相关进行过多的封装。
 
 ### 目录说明:
-> action 主要插件
-> action/ajax.js ajax统一管理插件。
-> action/connextionMysql.js 数据链接插件。
-> files用户文件上传目录，默认上传文件至 /default。
-> interface 接口目录，此目录将会被自动扫描调用，新增接口无需多余配置。
-> options 配置目录。
-> options/config.js 全局配置文件，此文件包含最重要的数据库账号信息和一些全局配置信息。
-> plugins 自定义插件目录，此目录的自定义插件将会被自动扫描调用，新增插件无需多余配置。
-> webapps 前端资源目录。
-> server.js启动文件
+> - action 主要插件
+> - action/ajax.js ajax统一管理插件。
+> - action/connextionMysql.js 数据链接插件。
+> - files用户文件上传目录，默认上传文件至 /default。
+> - interface 接口目录，此目录将会被自动扫描调用，新增接口无需多余配置。
+> - options 配置目录。
+> - options/config.js 全局配置文件，此文件包含最重要的数据库账号信息和一些全局配置信息。
+> - plugins 自定义插件目录，此目录的自定义插件将会被自动扫描调用，新增插件无需多余配置。
+> - webapps 前端资源目录。
+> - server.js启动文件
 
 ### 使用说明
 一、新增一个GET接口
 1、在interface目录下新增一个js文件（名字随意，此目录会被自动扫描）
 2、添加文件内容
 
-```
+```javascript
 /**
  * GET上传文件接口示例
  * @param  type {String} 请求类型 目前仅支持GET和POST
@@ -49,7 +49,7 @@ ajax({
 1、、在interface目录下新增一个js文件（名字随意，此目录会被自动扫描）
 2、添加文件内容
 
-```
+```javascript
 /**
  * POST上传文件接口示例
  * @param  type {String} 请求类型 目前仅支持GET和POST
@@ -77,7 +77,7 @@ ajax({
 ```
 三、文件上传示例
 
-```
+```javascript
 /**
  * 文件插件上传参数说明
  * @param options.fileParam {String} (必填) 文件信息
@@ -96,6 +96,4 @@ global.custom.plugins.keepFiles.call(this,{
     res.send(path);
 });
 ```
-如果需要更丰富的插件，可以自行开发，放在plugin下即可
-
-
+如果需要更丰富的插件，可以自行开发，放在plugins下即可
