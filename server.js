@@ -74,18 +74,31 @@ fs.readdir(pluginFile,function(err,files){
 var apiFile = path.resolve('interface');
 // readdir为异步函数
 //读取api文件目录
-fs.readdir(apiFile,function(err,files){
-    if(err){
-        console.log('-------------------------');
-        console.log(err);
-        console.log('获取api文件失败');
-        console.log('-------------------------');
-        return;
-    }
-    files.forEach(function(filename){
-        require(apiFile+'/'+filename);
+var eachApi = function (apiFile) {
+    fs.readdir(apiFile,function(err,files){
+        if(err){
+            console.log('-------------------------');
+            console.log(err);
+            console.log('获取api文件失败');
+            console.log('-------------------------');
+            return;
+        }
+        files.forEach(function(filename){
+            var pathUrl = apiFile+'/'+filename;
+            var stat = fs.lstatSync(pathUrl);
+            // 是文件夹 过滤文件夹
+            if(stat.isDirectory()){
+                eachApi(pathUrl);
+            }else {
+                //过滤非 .js 文件
+                if(filename.indexOf('.js') > 0){
+                    require(apiFile+'/'+filename);
+                };
+            }
+        });
     });
-});
+};
+eachApi(apiFile);
 
 var server = app.listen(8888,function () {
     console.log('启动服务成功！')
