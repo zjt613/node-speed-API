@@ -54,21 +54,37 @@ global.custom.ajax = require('./action/ajax').ajax;
 var pluginFile = path.resolve('plugins');
 // readdir为异步函数
 //读取plugin文件目录
-fs.readdir(pluginFile,function(err,files){
-    if(err){
-        console.log('-------------------------');
-        console.log(err);
-        console.log('获取plugin文件失败');
-        console.log('-------------------------');
-        return;
-    }
-    var plugins = {};
-    files.forEach(function(filename){
-        var splitDotName = filename.split('.')[0];
-        plugins[splitDotName] = require(pluginFile+'/'+filename)[splitDotName];
+//读取plugin文件目录
+var plugins = {};
+var eachPlugin = function (pluginFile) {
+    fs.readdir(pluginFile,function(err,files){
+        if(err){
+            console.log('-------------------------');
+            console.log(err);
+            console.log('获取api文件失败');
+            console.log('-------------------------');
+            return;
+        }
+        files.forEach(function(filename){
+            var pathUrl = pluginFile+'/'+filename;
+            var stat = fs.lstatSync(pathUrl);
+            // 是文件夹 过滤文件夹
+            if(stat.isDirectory()){
+                eachPlugin(pathUrl);
+            }else {
+                //过滤非 .js 文件
+                if(filename.indexOf('.js') > 0){
+                    var splitDotName = filename.split('.')[0];
+                    // console.log(splitDotName)
+                    // console.log(pluginFile+'/'+filename)
+                    plugins[splitDotName] = require(pluginFile+'/'+filename)[splitDotName];
+                };
+            }
+        });
     });
-    global.custom.plugins = plugins;
-});
+};
+eachPlugin(pluginFile);
+global.custom.plugins = plugins;
 
 //获取Api接口文件目录路径
 var apiFile = path.resolve('interface');
