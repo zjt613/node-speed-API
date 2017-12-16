@@ -3,7 +3,8 @@ var mysql = {
     user     : 'root',
     password : '123456',
     port: '3306',
-    database : 'test'
+    database : 'test',
+    multipleStatements: true
 };
 module.exports = {
     mysql:mysql,
