@@ -18,24 +18,14 @@ function mkdir(pos, dirArray,_callback){
         if(!exists){
             fs.mkdir(currentDir,function(err){
                 if(err){
-<<<<<<< HEAD
-                    // console.log('创建文件夹出错！');
-                }else{
-                    // console.log(currentDir+'文件夹-创建成功！');
-=======
                     console.log('创建文件夹出错！');
                 }else{
                     console.log(currentDir+'文件夹-创建成功！');
->>>>>>> 6c0c99861fa38a8b9e5356589a63328599927f46
                     mkdir(pos+1,dirArray,_callback);
                 }
             });
         }else{
-<<<<<<< HEAD
-            // console.log(currentDir+'文件夹-已存在！');
-=======
             console.log(currentDir+'文件夹-已存在！');
->>>>>>> 6c0c99861fa38a8b9e5356589a63328599927f46
             mkdir(pos+1,dirArray,_callback);
         }
     });
@@ -47,19 +37,11 @@ function mkdirs(dirpath,_callback) {
     fs.exists( dirpath ,function(exists){
         if(!exists){
             mkdir(0, dirArray,function(){
-<<<<<<< HEAD
-                // console.log('文件夹创建完毕!准备写入文件!');
-                _callback();
-            });
-        }else{
-            // console.log('文件夹已经存在!准备写入文件!');
-=======
                 console.log('文件夹创建完毕!准备写入文件!');
                 _callback();
             });
         }else{
             console.log('文件夹已经存在!准备写入文件!');
->>>>>>> 6c0c99861fa38a8b9e5356589a63328599927f46
             _callback();
         }
     });
