@@ -1,0 +1,45 @@
+//加密
+const crypto = require('crypto');
+const key = 'webascii_zhuangkai';//加密，解密关键词
+/**
+ * 使用方法
+ * 加密 aesEncrypt('zhuangkai','kyle') --> sdfgnjkasdfsjregjbdfv
+ * 解密 aesDecrypt('sdfgnjkasdfsjregjbdfv','kyle') --> zhuangkai
+ */
+var token = {
+    /**
+     * 生成加密值
+     * @param str {String} 原文
+     * @param key {String} 关键key
+     * @returns {String}
+     */
+    // aesEncrypt: function (str) {
+    jiami: function (str) {
+        const cipher = crypto.createCipher('aes192', key);
+        var crypted = cipher.update(str, 'utf8', 'hex');
+        crypted += cipher.final('hex');
+        return crypted;
+    },
+    /**
+     * 解密
+     * @param encrypted {String} 密文
+     * @param key {String} 关键key
+     * @returns {String}
+     */
+    // aesDecrypt: function (encrypted) {
+    jiemi: function (encrypted) {
+        try {
+            const decipher = crypto.createDecipher('aes192', key);
+            var decrypted = decipher.update(encrypted, 'hex', 'utf8');
+            decrypted += decipher.final('utf8');
+            return decrypted;
+        }catch (e){
+            return false;
+        }
+
+    }
+};
+
+
+
+module.exports.tokenBak = tokenBak;
